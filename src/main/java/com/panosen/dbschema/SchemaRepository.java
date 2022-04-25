@@ -16,15 +16,16 @@ import java.util.List;
 
 public class SchemaRepository {
 
-    public static final String INFORMATION_SCHEMA_TABLES = "information_schema.tables";
-    public static final String INFORMATION_SCHEMA_COLUMNS = "information_schema.columns";
-    public static final String INFORMATION_SCHEMA_KEY_COLUMN_USAGE = "information_schema.key_column_usage";
-    public static final String INFORMATION_SCHEMA_STATISTICS = "information_schema.statistics";
+    private static final String INFORMATION_SCHEMA = "information_schema";
+    private static final String TABLES = "tables";
+    private static final String COLUMNS = "columns";
+    private static final String KEY_COLUMN_USAGE = "key_column_usage";
+    private static final String STATISTICS = "statistics";
 
-    public static final String TABLE_SCHEMA = "TABLE_SCHEMA";
-    public static final String TABLE_NAME = "TABLE_NAME";
-    public static final String TABLE_TYPE = "TABLE_TYPE";
-    public static final String BASE_TABLE = "BASE TABLE";
+    private static final String TABLE_SCHEMA = "TABLE_SCHEMA";
+    private static final String TABLE_NAME = "TABLE_NAME";
+    private static final String TABLE_TYPE = "TABLE_TYPE";
+    private static final String BASE_TABLE = "BASE TABLE";
 
     private final EntityMapper<Table> tableEntityMapper = new EntityMapper<>(EntityManagerFactory.getOrCreateManager(Table.class));
     private final EntityMapper<Column> columnEntityMapper = new EntityMapper<>(EntityManagerFactory.getOrCreateManager(Column.class));
@@ -42,7 +43,7 @@ public class SchemaRepository {
     public List<Table> getTables(DataSource dataSource, String tableSchema) throws Exception {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from(INFORMATION_SCHEMA_TABLES);
+                .from(TABLES, INFORMATION_SCHEMA);
         selectSqlBuilder.where().must()
                 .equal(TABLE_SCHEMA, Types.VARCHAR, tableSchema)
                 .equal(TABLE_TYPE, Types.VARCHAR, BASE_TABLE);
@@ -61,7 +62,7 @@ public class SchemaRepository {
     public List<Column> getColumns(DataSource dataSource, String tableSchema) throws Exception {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from(INFORMATION_SCHEMA_COLUMNS);
+                .from(COLUMNS, INFORMATION_SCHEMA);
         selectSqlBuilder.where()
                 .equal(TABLE_SCHEMA, Types.VARCHAR, tableSchema);
 
@@ -81,7 +82,7 @@ public class SchemaRepository {
     public List<Column> getColumns(DataSource dataSource, String tableSchema, String tableName) throws Exception {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from(INFORMATION_SCHEMA_COLUMNS);
+                .from(COLUMNS, INFORMATION_SCHEMA);
         selectSqlBuilder.where().must()
                 .equal(TABLE_SCHEMA, Types.VARCHAR, tableSchema)
                 .equal(TABLE_NAME, Types.VARCHAR, tableName);
@@ -100,7 +101,7 @@ public class SchemaRepository {
     public List<KeyColumnUsage> getKeyColumnUsages(DataSource dataSource, String tableSchema) throws Exception {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from(INFORMATION_SCHEMA_KEY_COLUMN_USAGE);
+                .from(KEY_COLUMN_USAGE, INFORMATION_SCHEMA);
         selectSqlBuilder.where()
                 .equal(TABLE_SCHEMA, Types.VARCHAR, tableSchema);
 
@@ -119,7 +120,7 @@ public class SchemaRepository {
     public List<KeyColumnUsage> getKeyColumnUsages(DataSource dataSource, String tableSchema, String tableName) throws Exception {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from(INFORMATION_SCHEMA_KEY_COLUMN_USAGE);
+                .from(KEY_COLUMN_USAGE, INFORMATION_SCHEMA);
         selectSqlBuilder.where().must()
                 .equal(TABLE_SCHEMA, Types.VARCHAR, tableSchema)
                 .equal(TABLE_NAME, Types.VARCHAR, tableName);
@@ -138,7 +139,7 @@ public class SchemaRepository {
     public List<Statistics> getStatistics(DataSource dataSource, String tableSchema) throws Exception {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from(INFORMATION_SCHEMA_STATISTICS);
+                .from(STATISTICS, INFORMATION_SCHEMA);
         selectSqlBuilder.where()
                 .equal(TABLE_SCHEMA, Types.VARCHAR, tableSchema);
 
@@ -157,7 +158,7 @@ public class SchemaRepository {
     public List<Statistics> getStatistics(DataSource dataSource, String tableSchema, String tableName) throws Exception {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from(INFORMATION_SCHEMA_STATISTICS);
+                .from(STATISTICS, INFORMATION_SCHEMA);
         selectSqlBuilder.where().must()
                 .equal(TABLE_SCHEMA, Types.VARCHAR, tableSchema)
                 .equal(TABLE_NAME, Types.VARCHAR, tableName);
