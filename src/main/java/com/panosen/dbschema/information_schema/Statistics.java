@@ -80,7 +80,7 @@ public class Statistics {
      */
     @com.panosen.orm.annonation.Column(name = "CARDINALITY")
     @Type(type = Types.VARCHAR)
-    private String cardinality;
+    private Long cardinality;
 
     /**
      * The index prefix. That is, the number of indexed characters if the column is only partly indexed, NULL if the entire column is indexed.
@@ -210,11 +210,11 @@ public class Statistics {
         this.collation = collation;
     }
 
-    public String getCardinality() {
+    public Long getCardinality() {
         return cardinality;
     }
 
-    public void setCardinality(String cardinality) {
+    public void setCardinality(Long cardinality) {
         this.cardinality = cardinality;
     }
 
