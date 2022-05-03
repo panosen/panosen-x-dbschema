@@ -27,6 +27,8 @@ public class SchemaRepository {
     private static final String TABLE_TYPE = "TABLE_TYPE";
     private static final String BASE_TABLE = "BASE TABLE";
 
+    private static final String ORDINAL_POSITION = "ordinal_position";
+
     private final EntityMapper<Table> tableEntityMapper = new EntityMapper<>(EntityManagerFactory.getOrCreateManager(Table.class));
     private final EntityMapper<Column> columnEntityMapper = new EntityMapper<>(EntityManagerFactory.getOrCreateManager(Column.class));
     private final EntityMapper<KeyColumnUsage> keyColumnUsageEntityMapper = new EntityMapper<>(EntityManagerFactory.getOrCreateManager(KeyColumnUsage.class));
@@ -65,6 +67,7 @@ public class SchemaRepository {
                 .from(COLUMNS, INFORMATION_SCHEMA);
         selectSqlBuilder.where()
                 .equal(TABLE_SCHEMA, Types.VARCHAR, tableSchema);
+        selectSqlBuilder.orderBy(ORDINAL_POSITION);
 
         return DalQueryDao.queryList(new DalClient(dataSource), selectSqlBuilder, columnEntityMapper);
     }
@@ -86,6 +89,7 @@ public class SchemaRepository {
         selectSqlBuilder.where().must()
                 .equal(TABLE_SCHEMA, Types.VARCHAR, tableSchema)
                 .equal(TABLE_NAME, Types.VARCHAR, tableName);
+        selectSqlBuilder.orderBy(ORDINAL_POSITION);
 
         return DalQueryDao.queryList(new DalClient(dataSource), selectSqlBuilder, columnEntityMapper);
     }
