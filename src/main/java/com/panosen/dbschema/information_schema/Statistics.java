@@ -87,7 +87,7 @@ public class Statistics {
      */
     @com.panosen.orm.annonation.Column(name = "SUB_PART")
     @Type(type = Types.VARCHAR)
-    private String subPart;
+    private Long subPart;
 
     /**
      * Indicates how the key is packed. NULL if it is not.
@@ -123,20 +123,6 @@ public class Statistics {
     @com.panosen.orm.annonation.Column(name = "INDEX_COMMENT")
     @Type(type = Types.VARCHAR)
     private String indexComment;
-
-    /**
-     * Whether the index is visible to the optimizer. See Invisible Indexes.
-     */
-    @com.panosen.orm.annonation.Column(name = "IS_VISIBLE")
-    @Type(type = Types.VARCHAR)
-    private String isVisible;
-
-    /**
-     * MySQL 8.0.13 and higher supports functional key parts
-     */
-    @com.panosen.orm.annonation.Column(name = "EXPRESSION")
-    @Type(type = Types.VARCHAR)
-    private String expression;
 
     public String getTableCatalog() {
         return tableCatalog;
@@ -218,11 +204,11 @@ public class Statistics {
         this.cardinality = cardinality;
     }
 
-    public String getSubPart() {
+    public Long getSubPart() {
         return subPart;
     }
 
-    public void setSubPart(String subPart) {
+    public void setSubPart(Long subPart) {
         this.subPart = subPart;
     }
 
@@ -264,21 +250,5 @@ public class Statistics {
 
     public void setIndexComment(String indexComment) {
         this.indexComment = indexComment;
-    }
-
-    public String getIsVisible() {
-        return isVisible;
-    }
-
-    public void setIsVisible(String isVisible) {
-        this.isVisible = isVisible;
-    }
-
-    public String getExpression() {
-        return expression;
-    }
-
-    public void setExpression(String expression) {
-        this.expression = expression;
     }
 }

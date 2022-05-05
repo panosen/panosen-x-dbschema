@@ -179,13 +179,6 @@ public class Column {
     @Type(type = Types.VARCHAR)
     private String generationExpression;
 
-    /**
-     * SRS_ID
-     */
-    @com.panosen.orm.annonation.Column(name = "SRS_ID")
-    @Type(type = Types.VARCHAR)
-    private String srsId;
-
     public String getTableCatalog() {
         return tableCatalog;
     }
@@ -352,13 +345,5 @@ public class Column {
 
     public void setGenerationExpression(String generationExpression) {
         this.generationExpression = generationExpression;
-    }
-
-    public String getSrsId() {
-        return srsId;
-    }
-
-    public void setSrsId(String srsId) {
-        this.srsId = srsId;
     }
 }
